@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
-
- custombatSchema = mongoose.Schema({
+custombatSchema = mongoose.Schema({
     
     baseModel:String,
     sweetSpot:String,
@@ -12,11 +11,20 @@ var mongoose = require('mongoose');
     gripColour:String,
     toeGuard:String,
     finishing:String,
-    notes:String
-    
-    
-    
- });
+    notes:String,
+    email:String,
+    price:String,
+    firstName:String,
+    lastName:String,
+    address:String,
+    phoneNo:String,
+    orderNotes:String,
+    paymentmethod:String,
+    cardno:String,
+    expirydate:String,
+    cardcode:String,
+    email:String
+});
  
  var custombatDB = mongoose.model('custombats', custombatSchema);
  module.exports = custombatDB;

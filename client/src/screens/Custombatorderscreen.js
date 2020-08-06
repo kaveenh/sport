@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Loginform from '../components/Loginform.js';
+import CustomBatOrder from '../components/CustomBatOrder.js';
 import Footer from '../components/Footer'
 import Appnavbar from "../components/Appnavbar.js";
 
 
-class Loginscreen extends Component {
+class Custombatorderscreen extends Component {
   
   
   render() {
@@ -14,8 +14,12 @@ class Loginscreen extends Component {
       <div>
       <Appnavbar></Appnavbar>
       </div>
+      
+      
+      <CustomBatOrder  socket={this.props.socket}></CustomBatOrder>
+      
+      
 
-<Loginform  socket = {this.props.socket}></Loginform>
       <Footer></Footer>
 
 
@@ -24,4 +28,4 @@ class Loginscreen extends Component {
     );
   }
 }
-export default Loginscreen;
+export default Custombatorderscreen;

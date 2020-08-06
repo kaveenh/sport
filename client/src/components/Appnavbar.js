@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {loginCustomer}from "../redux/actions/Loginactions"
 import {connect} from "react-redux"
 import{Navbar,Nav,NavDropdown} from 'react-bootstrap'
+import Cart from './Cart';
 
 class Appnavbar extends Component{
   constructor(props){
@@ -41,7 +42,9 @@ renderLoginSignup=()=>{
 
 logout=()=>{
   this.props.loginCustomer({email:"",password:""})
-  localStorage.clear() //clearing all cookies
+  window.localStorage.clear() //clearing all cookies
+  
+
   
 }
 
@@ -76,7 +79,7 @@ renderUser=()=>{
   render(){
   
     return(
-
+<div>
 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 
   <NavLink to = "/"><Navbar.Brand href="/"><img src={require('./images/logo.png')} width="30px" height="30px" className="d-inline-block align-auto" alt="  "/>  SPORTS:STORE</Navbar.Brand></NavLink>
@@ -103,6 +106,8 @@ renderUser=()=>{
   </Navbar.Collapse>
 
 </Navbar>
+<Cart></Cart>
+</div>
     )
 }
 }

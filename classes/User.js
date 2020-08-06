@@ -19,8 +19,8 @@ class UserFunctions{
                    
                }
                else{
-                   console.log("password not matched")
-                    client.emit("password not matched")
+                   console.log("password incorrect")
+                    client.emit("password incorrect")
                }
             }else{
                 console.log("User not found")
@@ -42,7 +42,7 @@ class UserFunctions{
                 if(!data.provider){
                  newCustomer=new customerDb();
                 }
-                newCustomer.userName=data.userName;
+                        newCustomer.userName=data.userName;
                         newCustomer.email=data.email;
                         newCustomer.firstName=data.firstName;
                         newCustomer.lastName=data.lastName;

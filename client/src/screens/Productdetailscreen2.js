@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import Loginform from '../components/Loginform.js';
+import Cricketgloves from '../components/ProductDetails1';
 import Footer from '../components/Footer'
 import Appnavbar from "../components/Appnavbar.js";
+import ProductDetails2 from "../components/ProductDetails2";
 
 
-class Loginscreen extends Component {
+class Productdetailscreen2 extends Component {
   
   
   render() {
@@ -15,7 +16,8 @@ class Loginscreen extends Component {
       <Appnavbar></Appnavbar>
       </div>
 
-<Loginform  socket = {this.props.socket}></Loginform>
+      <ProductDetails2></ProductDetails2>
+
       <Footer></Footer>
 
 
@@ -24,4 +26,4 @@ class Loginscreen extends Component {
     );
   }
 }
-export default Loginscreen;
+export default Productdetailscreen2;

@@ -1,17 +1,22 @@
 var mongoose = require('mongoose');
 
  jerseySchema = mongoose.Schema({
-     id:String,
-     userName:String,
-     image:String,
+     email:String,
+     image:Buffer,
+     deadline: Date,
      description:String,
-     xsquantity:String,
-     squantity:String,
-     mquantity:String,
-     lquantity:String,
-     xlquantity:String
-     
+     address:String,
+     XXS:String,
+     XS:String,
+     S:String,
+     M:String,
+     L:String,
+     XL:String,
+     XXL:String,
  });
  
  var jerseyDB = mongoose.model('jersey', jerseySchema);
  module.exports = jerseyDB;
+
+
+ 

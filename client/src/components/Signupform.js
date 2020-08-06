@@ -99,7 +99,7 @@ class Signupform extends Component {
     })
     this.props.socket.on("save successful", () => {
       console.log("save successful")
-      this.props.history.push('/Login')
+      this.props.history.push('/login')
     })
     this.props.socket.on("internal error", () => {
       console.log("internal error")
@@ -118,7 +118,7 @@ class Signupform extends Component {
               <form role="form">
                 <h2>Create Account <br></br><small>Get started with your free account</small></h2>
                 <hr className="colorgraph" />
-                <div className="row">
+                {/* <div className="row">
                   <div className="col-xs-12 col-sm-6 col-md-6">
                     <div className="form-group">
                       <input type="text" onChange={e => this.onChange(e)} value={this.state.firstName} name="firstName" id="first_name" className="form-control input-lg" placeholder="First Name" tabindex="1" />
@@ -129,15 +129,16 @@ class Signupform extends Component {
                       <input name="lastName" onChange={e => this.onChange(e)} value={this.state.lastName} type="text" id="last_name" className="form-control input-lg" placeholder="Last Name" tabindex="2" />
                     </div>
                   </div>
-                </div>
-                <div className="form-group">
+                </div> */}
+                {/* <div className="form-group">
                   <input name="phoneNo" onChange={e => this.onChange(e)} value={this.state.phoneNo} type="text" id="display_name" className="form-control input-lg" placeholder="Phone NO" tabindex="3" />
                 </div>
                 <div className="form-group">
                   <textarea rows="3" name="address" onChange={e => this.onChange(e)} value={this.state.address} type="text" id="display_name" className="form-control input-lg" placeholder="Address" tabindex="3" />
                 </div>
+                  */}
                 <div className="form-group">
-                  <input name="userName" onChange={e => this.onChange(e)} value={this.state.userName} type="text" id="display_name" className="form-control input-lg" placeholder="Username" tabindex="3" />
+                  <input name="userName" onChange={e => this.onChange(e)} value={this.state.userName} type="text" id="userName" className="form-control input-lg" placeholder="Username" tabindex="3" />
                 </div>
                 <div className="form-group">
                   <input name='email' onChange={e => this.onChange(e)} value={this.state.email} type="email" id="email" className="form-control input-lg" placeholder="Email Address" tabindex="4" />
@@ -200,6 +201,11 @@ class Signupform extends Component {
         socket1: state.socket
       }
     }
+
+    
+
+    
+    
     
     export default withRouter(connect(mapStateToProps, null)(Signupform)); 
 

@@ -2,6 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const io = require('socket.io')();
 const UserFunctions=require('./classes/User')
+const BatFunctions=require('./classes/Bat')
+const JerseyFunctions=require('./classes/Jersey')
+const OrderFunctions = require('./classes/Order')
+
+
 
 
 
@@ -24,7 +29,8 @@ exports.addToClientArray=(client)=>{
     
 }
 
-app.use(express.static(__dirname+'/client/build'));
+//app.use(express.static(__dirname+'/client/build'));
+
     io.on('connection', (client) => { //a new client has been connected
         socketArray.push(client)
         console.log("connected");
@@ -47,6 +53,23 @@ app.use(express.static(__dirname+'/client/build'));
             console.log("disconnected");
 
     })
+
+    client.on("SubmitBat",(data)=>{
+        console.log("data : "+ JSON.stringify(data));
+        BatFunctions.saveCustomBat(data, client);
+
+    })
+    client.on("UploadJersey",(data)=>{
+        console.log("data : "+JSON.stringify(data));
+        JerseyFunctions.saveJersey(data, client);
+
+    })
+    client.on("Order",(data)=>{
+        console.log("data : "+JSON.stringify(data));
+        OrderFunctions.saveOrder(data,client);
+        
+    })
+    
 })
 
 

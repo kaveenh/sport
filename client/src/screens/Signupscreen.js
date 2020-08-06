@@ -12,7 +12,7 @@ class Signupscreen extends Component {
     return (
     
 
-      <div>
+      <div className = "background">
       <div>
       <Appnavbar></Appnavbar>
       </div>

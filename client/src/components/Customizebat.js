@@ -1,33 +1,197 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
+import {Link} from 'react-router-dom';
+import {customBat}from "../redux/actions/CustomBatActions";
+import {loginCustomer} from '../redux/actions/Loginactions'
 
 
 
 class Customizebat extends Component {
+
   
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    baseModel:"English Willow Grade A (LKR 15,000)",
+    sweetSpot:"Low",
+    size:"Full Size Short Handle",
+    weight:"2lb 10oz",
+    spineProfile:"Recommended",
+    edgeWidth:"Recommended",
+    handleType:"Oval",
+    gripColour:"White",
+    toeGuard:"Yes(Black)",
+    finishing:"None(Machine Rolled/Knocked)",
+    notes:"",
+    email:"",
+    err:"",
+    price:"LKR 15,000"
+      
+      
+    };
+
+
+
+  }
+  
+  customizeHandler = () =>{
+
+    return{
+
+      baseModel:this.state.baseModel,
+    sweetSpot:this.state.sweetSpot,
+    size:this.state.size,
+    weight:this.state.weight,
+    spineProfile:this.state.spineProfile,
+    edgeWidth:this.state.edgeWidth,
+    handleType:this.state.handleType,
+    gripColour:this.state.gripColour,
+    toeGuard:this.state.toeGuard,
+    finishing:this.state.finishing,
+    notes:this.state.notes,
+    email:this.props.login.email,
+    price:this.state.price
+    
+
+    }
+
+
+  }
+
+  sendCustomizeData = (data) => {
+    this.props.socket.emit("SubmitBat",data)
+    console.log(this.props.socket)
+  }
+
+  onChange = (e) => {
+    
+    this.setState({
+      [e.target.name]:e.target.value,
+
+      
+    })
+     
+    if (e.target.value === "English Willow Grade A (LKR 15,000)"){
+      
+      this.setState({price:"LKR 15,000"})
+    }else if (e.target.value === "English Willow Grade B (LKR 14,000)"){
+      this.setState({price:"LKR 14,000"})
+
+
+    }else if(e.target.value === "English Willow Grade C (LKR 13,000)"){
+      this.setState({price:"LKR 13,000"})
+
+
+    }
+  }
+
+  
+
+  onSubmit = (e) => {
+
+    
+    
+    if(this.props.login.email === ""){
+      
+      e.preventDefault();
+      
+      this.setState({
+        err:<div> **You should <Link to = "/signup">REGISTER</Link> to obtain this service, or if you are already a member please <Link to = "/login">LOGIN</Link></div>
+        
+      })
+
+    
+      
+
+    }
+      
+      
+  else{
+      
+    
+    localStorage.setItem('baseModel',this.state.baseModel)
+    localStorage.setItem('sweetSpot',this.state.sweetSpot)
+    localStorage.setItem('size',this.state.size)
+    localStorage.setItem('weight',this.state.weight)
+    localStorage.setItem('spineProfile',this.state.spineProfile)
+    localStorage.setItem('edgeWidth',this.state.edgeWidth)
+    localStorage.setItem('handleType',this.state.handleType)
+    localStorage.setItem('gripColour',this.state.gripColour)
+    localStorage.setItem('toeGuard',this.state.toeGuard)
+    localStorage.setItem('finishing',this.state.finishing)
+    localStorage.setItem('notes',this.state.notes)
+    localStorage.setItem('price',this.state.price)
+    this.props.customBat({baseModel:this.state.baseModel})
+    this.props.customBat({sweetSpot:this.state.sweetSpot})
+    this.props.customBat({size:this.state.size})
+    this.props.customBat({weight:this.state.weight})
+    this.props.customBat({spineProfile:this.state.spineProfile})
+    this.props.customBat({edgeWidth:this.state.edgeWidth})
+    this.props.customBat({handleType:this.state.handleType})
+    this.props.customBat({gripColour:this.state.gripColour})
+    this.props.customBat({toeGuard:this.state.toeGuard})
+    this.props.customBat({finishing:this.state.finishing})
+    this.props.customBat({notes:this.state.notes})
+    this.props.customBat({price:this.state.price})
+    
+      
+       
+    
+    }
+    
+  }
+
+  componentDidMount(){
+    this.setState({email:this.props.login.email})
+    
+
+  }
+
+  onCancel = (e) =>{
+    e.preventDefault();
+      this.setState({
+        notes:"",
+        err:""
+        
+      })
+  }
+
+  
+
   
   render() {
     
+    
+    
+    
     return (
+      <div>
       
-<form className = "container border mt-4">  
-
+<div className = "container border mt-4 mb-4"> 
+<div style = {{textAlign:"center"}}>
+<h4>Send us your prefered design by customizing it below.</h4>
+<h4>Please note that the prices will change only according to your prefered <strong>base model.</strong></h4>
+</div>
  <img src={require('./images/custombat.jpg')} width="500px" className="rounded mx-auto d-block m-4" alt="  "/>
 
 
  <div  style = {{display:"flex"}}> 
 <div style = {{marginRight:"100px"}} className="form-group">
     <label  for="basemodel"><strong>Base Model</strong></label>
-    <select className="form-control" id="basemodel">
-      <option >English Willow Grade A</option>
-      <option >English Willow Grade B</option>
-      <option >English Willow Grade C</option>
+    <select className="form-control" name = 'baseModel' onChange = {e => this.onChange(e)} value = {this.state.baseModel} id="basemodel">
+      <option >English Willow Grade A (LKR 15,000)</option>
+      <option >English Willow Grade B (LKR 14,000)</option>
+      <option >English Willow Grade C (LKR 13,000)</option>
       
     </select>
+    
   </div>
   
   <div style = {{marginRight:"100px"}}className="form-group">
     <label  for="sweetspot"><strong>Sweet Spot</strong></label>
-    <select className="form-control" id="sweetspot">
+    <select className="form-control" name = 'sweetSpot' onChange = {e => this.onChange(e)} value = {this.state.sweetSpot} id="sweetspot">
       <option>Low</option>
       <option>Middle</option>
       <option>High</option>
@@ -37,7 +201,7 @@ class Customizebat extends Component {
 
   <div style = {{marginRight:"100px"}}className="form-group">
     <label  for="size"><strong>Size</strong></label>
-    <select className="form-control" id="size">
+    <select className="form-control" name = "size" onChange = {e => this.onChange(e)} value = {this.state.size} id="size">
       <option>Full Size Short Handle</option>
       <option>Full Size Long Handle</option>
       <option>Harrow</option>
@@ -48,7 +212,7 @@ class Customizebat extends Component {
 
   <div style = {{marginRight:"100px"}}className="form-group">
     <label  for="weight"><strong>Weight</strong></label>
-    <select className="form-control" id="weight">
+    <select className="form-control" name = "weight" onChange = {e => this.onChange(e)} value = {this.state.weight} id="weight">
       <option>2lb 10oz</option>
       <option>2lb 60oz</option>
       <option>2lb 80oz</option>
@@ -68,26 +232,34 @@ class Customizebat extends Component {
 
 </div>
 <div style = {{display:"flex"}}>
-<select className="form-control">
-  <option selected>Spine Profile(Optional)</option>
-  <option value = "1">Recommended</option>
-  <option value="2">Standard</option>
-  <option value="3">Slightly Concaved</option>
-  <option value="3">Concaved</option>
+<div style = {{marginRight:"100px"}} className="form-group">
+<label  for="spineProfile"><strong>Spine Profile</strong></label>
+
+<select className="form-control" name = "spineProfile" onChange = {e => this.onChange(e)} value = {this.state.spineProfile} id = "spineprofile">
+  
+  <option>Recommended</option>
+  <option>Standard</option>
+  <option>Slightly Concaved</option>
+  <option>Concaved</option>
 </select>
-<select className="form-control">
-  <option selected>Edge Width(Optional)</option>
-  <option value="1">Recommended</option>
-  <option value="2">30-33mm</option>
-  <option value="3">34-36mm</option>
-  <option value="3">37-39mm</option>
+</div>
+<div style = {{marginRight:"100px"}} className="form-group">
+<label  for="edgeWidth"><strong>Edge Width</strong></label>
+
+<select className="form-control" name = "edgeWidth" onChange = {e => this.onChange(e)} value = {this.state.edgeWidth}>
+  
+  <option>Recommended</option>
+  <option>30-33mm</option>
+  <option>34-36mm</option>
+  <option>37-39mm</option>
 </select>
+</div>
 </div>
 
 <div  style = {{display:"flex",marginTop:"20px"}}> 
 <div style = {{marginRight:"100px"}} className="form-group">
     <label  for="handletype"><strong>Handle Type(Optional)</strong></label>
-    <select className="form-control" id="handletype">
+    <select className="form-control" name = "handleType" onChange = {e => this.onChange(e)} value = {this.state.handleType} id="handletype">
       <option>Oval</option>
       <option>Round</option>
       
@@ -97,7 +269,7 @@ class Customizebat extends Component {
 
   <div style = {{marginRight:"100px"}}className="form-group">
     <label  for="gripcolour"><strong>Grip Colour(Optional)</strong></label>
-    <select className="form-control" id="gripcolour">
+    <select className="form-control" name = "gripColour" onChange = {e => this.onChange(e)} value = {this.state.gripColour} id="gripcolour">
       <option>White</option>
       <option>Red</option>
       <option>Green</option>
@@ -110,7 +282,7 @@ class Customizebat extends Component {
 
   <div style = {{marginRight:"100px"}}className="form-group">
     <label for="toeguard"><strong>Toe Guard(Optional)</strong></label>
-    <select className="form-control" id="toeguard">
+    <select className="form-control" name = "toeGuard" onChange = {e => this.onChange(e)} value = {this.state.toeGuard} id="toeguard">
       <option>Yes(Black)</option>
       <option>No</option>
       
@@ -120,52 +292,81 @@ class Customizebat extends Component {
   </div>
   </div>
   <div style = {{display:"flex"}}>
+
+  <div style = {{marginRight:"100px"}}className="form-group">
+    <label  for="finishing"><strong>Finishing(Optional)</strong></label>
+    <select className="form-control" name = "finishing" onChange = {e => this.onChange(e)} value = {this.state.finishing} id="finishing">
+      <option>None (Machine Rolled/Knocked)</option>
+      <option>Anti Scuff Sheet + Manual Knocking in</option>
+      <option>Anti Scuff Sheet</option>
+      <option>Oiling + Manual Knocking in</option>
+      <option>Oiling</option>
+      
+      
+    </select>
+  </div>
   
-      <div>
-  <label ><strong>Finishing(Optional)</strong></label>
-  <div class="custom-control custom-radio">
-  
-  <input type="radio" id="none" name="customRadio" class="custom-control-input"/>
-  <label class="custom-control-label" for="none">None (Machine Rolled/Knocked)</label>
-</div>
-<div class="custom-control custom-radio">
-  <input type="radio" id="antiscuff+manual" name="customRadio" class="custom-control-input"/>
-  <label class="custom-control-label" for="antiscuff+manual">Anti Scuff Sheet + Manual Knocking in </label>
-</div>
-<div class="custom-control custom-radio">
-  
-  <input type="radio" id="antiscuff" name="customRadio" class="custom-control-input"/>
-  <label class="custom-control-label" for="antiscuff">Anti Scuff Sheet </label>
-</div>
-<div class="custom-control custom-radio">
-  
-  <input type="radio" id="oil+manual" name="customRadio" class="custom-control-input"/>
-  <label class="custom-control-label" for="oil+manual">Oiling + Manual Knocking in </label>
-</div>
-<div class="custom-control custom-radio">
-  
-  <input type="radio" id="oil" name="customRadio" class="custom-control-input"/>
-  <label class="custom-control-label" for="oil">Oiling</label>
-</div>
-</div>
-<div style = {{marginLeft:"200px"}}>
+      
+<div style = {{marginLeft:"50px"}}>
 <div class="form-group">
     <label for="notes"><strong>Notes(Optional)</strong></label>
-    <textarea class="form-control" id="notes" rows="3"></textarea>
+    <textarea cols = "50" rows = "10" class="form-control" name = "notes" onChange = {e => this.onChange(e)} value = {this.state.notes} id="notes" rows="3"></textarea>
   </div>
   </div>
   </div>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
-  <button style = {{backgroundColor:"black"}}class="btn btn-primary m-4" type="submit">Order Now <span class="glyphicon glyphicon-shopping-cart"></span>
-        </button>
+  
+  <a><strong>Price:  </strong></a><a>{this.state.price}</a><br></br>
+  <Link to = '/cricket/customizebat/custombatorder'><button type="button" onClick={(e) => { this.onSubmit(e) }} className="btn btn-primary  mt-4">Customize Bat <span class="glyphicon glyphicon-shopping-cart"></span></button></Link>
+        <button onClick={(e) => { this.onCancel(e) }} type="button" className="btn btn-primary mb ml-4 mt-4">Cancel</button><br></br>
+        <div style = {{display:"Flex"}}>
+        
+        </div>
+        <h4 style={{ color: "red" }}>{
+                    this.state.err
+
+                  }</h4>
+
+        
   
   
 
   
-</form>
+</div>
+<div className = "container border mb-4 col-5"style = {{marginLeft:"190px"}}>
+  <h4 ><strong>Are you a Bulk Buyer</strong></h4>
+  
+   <a> We see sports clubs & retailers of the future as design boutiques and customer service hubs that can benefit from our services on the backend to delight their customers in real life!
+If you are a retailer, a regular bulk buyer (club, school, hotel or resort) or want to become a sales affiliate, just visit our<Link to = "/cricket/customizebat/bulkbuyer"> Bulk Buyer</Link> page and we will set you up with a dedicated account manager to discuss further details.
+</a>
+  
+  </div>
+<img src={require('./images/Custom_bat.jpg')}  className = "col-12 mb-4" alt="  "/>
+
+<div className = "container border" style = {{display:"flex"}}>
+ </div> 
+
+  
+</div>
+
 
 
     );
   }
 }
-export default Customizebat;
+
+const mapStateToProps = (state) => {
+  return{
+    socket2: state.socket,
+    login:state.login
+  }
+}
+
+const mapActionsToProps = {
+  customBat,
+  loginCustomer
+  
+}
+
+
+
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(Customizebat)); 

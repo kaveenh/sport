@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {withRouter} from "react-router-dom"
 import {connect} from "react-redux"
 import {loginCustomer}from "../redux/actions/Loginactions"
+import Admin from "./Admin"
 
 class Loginform extends Component {
 
@@ -20,10 +21,17 @@ onChange=(e)=>{
 }
 onSubmit=(e)=>{
   e.preventDefault();
+  if(this.state.email === "admin" && this.state.password === "admin"){
+    
+    this.props.history.push("/admin")
+    
+
+  }else{
   this.props.socket.emit("Login",{
       email:this.state.email,
       password:this.state.password
   })
+}
 }
 
   render() {
@@ -34,10 +42,10 @@ onSubmit=(e)=>{
       this.props.loginCustomer({email:this.state.email, password:this.state.password})
       this.props.history.push("/")
     })
-    this.props.socket.on("password not matched",()=>{
-      console.log("password not matched")
+    this.props.socket.on("password incorrect",()=>{
+      console.log("password incorrect")
       this.setState({
-          err: "password not matched"
+          err: "password incorrect"
         })
     })
     this.props.socket.on("user not found",()=>{
@@ -56,9 +64,13 @@ onSubmit=(e)=>{
         })
     })
     
+
+      
     return (
+    
       <div>
-         <div className="container">
+        
+         <form className="container col-md-3">
              <div className="card card-container">
                 <div className="form-topic">
                 <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'></link>
@@ -71,7 +83,6 @@ onSubmit=(e)=>{
                         <input onChange={e=>this.onChange(e)} value={this.state.email} name="email" type="email" id="inputemail" className="form-control" placeholder="Email address" required autoFocus/>
                         <input onChange={e=>this.onChange(e)} value={this.state.password} name="password" type="password" id="inputPassword" className="form-control" placeholder="Password" required/>
                         
-                        <p style={{color:"red"}}></p>
                         <button onClick= {(e)=>{this.onSubmit(e)}} type="submit" className="btn btn-primary mb">Sign In</button>
                     </form>
                     <a href="/login" className="forgot-password">
@@ -84,10 +95,11 @@ onSubmit=(e)=>{
                   }</p>
                 </div>
              </div>
-            </div>
+            </form>
         
       </div>
     );
+                
   }
 }
 const mapActionsToProps={

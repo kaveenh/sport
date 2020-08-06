@@ -55,7 +55,7 @@ class Cricketselectioncards extends Component {
         </div>
 
     
-    <div style = {{backgroundColor:"#ecfbb8"}} className="card ml-3 mr-5 mt-auto mb-auto">
+    <div style = {{backgroundColor:"#ecfbb8"}} className=" container card ml-3 mr-5 mt-auto">
       <div className="row">
         <div className="col-md-4">
             <img src={require('./images/crickethomebag.jpg')} className="h-50 card-img-top"/>

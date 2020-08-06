@@ -10,7 +10,7 @@ class Cricketglovesscreen extends Component {
   render() {
     
     return (
-      <div>
+      <div className = "background">
       <div>
       <Appnavbar></Appnavbar>
       </div>

@@ -10,7 +10,7 @@ class Customizescreen extends Component {
   render() {
     
     return (
-      <div>
+      <div className = "background">
       <Appnavbar></Appnavbar>
       <div>
       <Customizebat></Customizebat>

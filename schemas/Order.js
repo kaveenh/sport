@@ -2,11 +2,20 @@ var mongoose = require('mongoose');
 
  orderSchema = mongoose.Schema({
     
-    itemId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'items' }],
-    email: String,
-    quantity: String,
-    status: {type: String, default: "unaccepted"}
+    firstName:String,
+    lastName:String,
+        address:String,
+        phoneNo:String,
+        orderNotes:String,
+        paymentmethod:String,
+        cardno:String,
+        expirydate:String,
+        cardcode:String,
+        prodquant:String,
+        prodname:String,
+        prodprice:String,
+        tot:String
  });
  
- var orderDB = mongoose.model('order', orderSchema);
+ var orderDB = mongoose.model('Order', orderSchema);
  module.exports = orderDB;
