@@ -20,7 +20,7 @@ class Homepage extends Component {
     return (
       <div className = "background">
         
-        <div className = "mb-5">
+        <div className = "mb-4">
           <Appnavbar></Appnavbar>
           </div>
 
